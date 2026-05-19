@@ -12,7 +12,9 @@ void main() async {
 
   final appDir = await getApplicationDocumentsDirectory();
   Hive.init(appDir.path);
-  await Hive.openBox('chat_history');
+  if (!Hive.isBoxOpen('chat_history')) {
+    await Hive.openBox<String>('chat_history');
+  }
 
   runApp(const BLEChatApp());
 }
